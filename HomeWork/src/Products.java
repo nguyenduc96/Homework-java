@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
-public class Main {
+public class Products {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String[] update;
@@ -29,11 +29,11 @@ public class Main {
                     System.out.println("Enter name delete product : ");
                     String del_product = scanner.nextLine();
                     String[] newArrayDeleted = deleteProduct(del_product, update);
-                    if (findIndex(update, del_product) == -1){
+                    if (findIndex(update, del_product) == -1) {
                         System.out.println(del_product + " not in array");
                         update = updateArray(newArrayDeleted);
                         displayArray(update);
-                    }else {
+                    } else {
                         update = updateArray(newArrayDeleted);
                         System.out.println("Deleted " + del_product);
                         displayArray(update);
@@ -59,6 +59,13 @@ public class Main {
                 case 4: {
                     sortArray(update);
                     System.out.println("Sorted!");
+                    displayArray(update);
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                }
+                case 5: {
                     displayArray(update);
                     displayMenu();
                     choice = scanner.nextInt();
@@ -125,7 +132,7 @@ public class Main {
     static public String[] deleteProduct(String del_product, String[] array) {
         String[] newArrayDelete = createArray(array.length - 1);
         int index = findIndex(array, del_product);
-        if (index != -1){
+        if (index != -1) {
             for (int i = 0; i < newArrayDelete.length; i++) {
                 if (i < index) {
                     newArrayDelete[i] = array[i];
@@ -133,7 +140,7 @@ public class Main {
                     newArrayDelete[i] = array[i + 1];
                 }
             }
-        }else {
+        } else {
             newArrayDelete = array;
         }
         return newArrayDelete;
@@ -153,12 +160,13 @@ public class Main {
         return update;
     }
 
-    static public void displayMenu(){
+    static public void displayMenu() {
         System.out.println("Menu");
         System.out.println("1: Add product");
         System.out.println("2: Delete product");
         System.out.println("3: Search product");
         System.out.println("4: Sort product");
+        System.out.println("5: Display array product");
         System.out.println("0: Exit");
     }
 }

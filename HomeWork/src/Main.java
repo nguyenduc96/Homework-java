@@ -7,15 +7,8 @@ public class Main {
         String[] update;
         String[] array = inputArray();
         update = updateArray(array);
-        sortArray(update);
         displayArray(update);
-
-        System.out.println("Menu");
-        System.out.println("1: Add product");
-        System.out.println("2: Delete product");
-        System.out.println("3: Search product");
-        System.out.println("4: Sort product");
-        System.out.println("0: Exit");
+        displayMenu();
         int choice = scanner.nextInt();
         scanner.nextLine();
         do {
@@ -23,40 +16,62 @@ public class Main {
                 case 1: {
                     System.out.println("Enter name product add : ");
                     String add_product = scanner.nextLine();
-                    String[] newArray = addProduct(add_product, array);
-                    update = updateArray(newArray);
+                    String[] newArrayAdded = addProduct(add_product, update);
+                    update = updateArray(newArrayAdded);
+                    System.out.println("Added " + add_product);
                     displayArray(update);
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
                     break;
                 }
                 case 2: {
                     System.out.println("Enter name delete product : ");
                     String del_product = scanner.nextLine();
-                    String[] newArrayDelete = deleteProduct(del_product, update);
-                    update = updateArray(newArrayDelete);
-                    displayArray(update);
+                    String[] newArrayDeleted = deleteProduct(del_product, update);
+                    if (findIndex(update, del_product) == -1){
+                        System.out.println(del_product + " not in array");
+                        update = updateArray(newArrayDeleted);
+                        displayArray(update);
+                    }else {
+                        update = updateArray(newArrayDeleted);
+                        System.out.println("Deleted " + del_product);
+                        displayArray(update);
+                    }
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
                     break;
                 }
                 case 3: {
                     System.out.println("Enter the name you want to search : ");
                     String name_search = scanner.nextLine();
                     if (findIndex(update, name_search) != -1) {
-                        System.out.printf("Find '%s' at : %d", findProduct(update, name_search), findIndex(update, name_search));
+                        System.out.printf("Product '%s' found at index %d \n", findProduct(update, name_search), findIndex(update, name_search));
                     } else {
-                        System.out.println("Not found !!");
+                        System.out.printf("Product %s was not found !! \n", name_search);
                     }
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
                     break;
                 }
                 case 4: {
                     sortArray(update);
+                    System.out.println("Sorted!");
+                    displayArray(update);
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
                     break;
                 }
                 case 0: {
-                    System.out.println("Exit application");
                     System.exit(0);
                     break;
                 }
                 default: {
                     System.out.println("Does not exist. Please re-enter!!");
+                    displayMenu();
                 }
             }
         } while (choice != 0);
@@ -110,12 +125,16 @@ public class Main {
     static public String[] deleteProduct(String del_product, String[] array) {
         String[] newArrayDelete = createArray(array.length - 1);
         int index = findIndex(array, del_product);
-        for (int i = 0; i < newArrayDelete.length; i++) {
-            if (i < index) {
-                newArrayDelete[i] = array[i];
-            } else {
-                newArrayDelete[i] = array[i + 1];
+        if (index != -1){
+            for (int i = 0; i < newArrayDelete.length; i++) {
+                if (i < index) {
+                    newArrayDelete[i] = array[i];
+                } else {
+                    newArrayDelete[i] = array[i + 1];
+                }
             }
+        }else {
+            newArrayDelete = array;
         }
         return newArrayDelete;
     }
@@ -132,5 +151,14 @@ public class Main {
     static public String[] updateArray(String[] array) {
         String[] update = array;
         return update;
+    }
+
+    static public void displayMenu(){
+        System.out.println("Menu");
+        System.out.println("1: Add product");
+        System.out.println("2: Delete product");
+        System.out.println("3: Search product");
+        System.out.println("4: Sort product");
+        System.out.println("0: Exit");
     }
 }

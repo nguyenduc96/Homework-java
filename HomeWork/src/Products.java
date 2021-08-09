@@ -4,10 +4,8 @@ import java.util.Arrays;
 public class Products {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] update;
         String[] array = inputArray();
-        update = updateArray(array);
-        displayArray(update);
+        displayArray(array);
         displayMenu();
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -16,10 +14,9 @@ public class Products {
                 case 1: {
                     System.out.println("Enter name product add : ");
                     String add_product = scanner.nextLine();
-                    String[] newArrayAdded = addProduct(add_product, update);
-                    update = updateArray(newArrayAdded);
+                    array = addProduct(add_product, array);
                     System.out.println("Added " + add_product);
-                    displayArray(update);
+                    displayArray(array);
                     displayMenu();
                     choice = scanner.nextInt();
                     scanner.nextLine();
@@ -28,15 +25,13 @@ public class Products {
                 case 2: {
                     System.out.println("Enter name delete product : ");
                     String del_product = scanner.nextLine();
-                    String[] newArrayDeleted = deleteProduct(del_product, update);
-                    if (findIndex(update, del_product) == -1) {
+                    array = deleteProduct(del_product, array);
+                    if (findIndex(array, del_product) == -1) {
                         System.out.println(del_product + " not in array");
-                        update = updateArray(newArrayDeleted);
-                        displayArray(update);
+                        displayArray(array);
                     } else {
-                        update = updateArray(newArrayDeleted);
                         System.out.println("Deleted " + del_product);
-                        displayArray(update);
+                        displayArray(array);
                     }
                     displayMenu();
                     choice = scanner.nextInt();
@@ -46,8 +41,8 @@ public class Products {
                 case 3: {
                     System.out.println("Enter the name you want to search : ");
                     String name_search = scanner.nextLine();
-                    if (findIndex(update, name_search) != -1) {
-                        System.out.printf("Product '%s' found at index %d \n", findProduct(update, name_search), findIndex(update, name_search));
+                    if (findIndex(array, name_search) != -1) {
+                        System.out.printf("Product '%s' found at index %d \n", findProduct(array, name_search), findIndex(array, name_search));
                     } else {
                         System.out.printf("Product %s was not found !! \n", name_search);
                     }
@@ -57,16 +52,16 @@ public class Products {
                     break;
                 }
                 case 4: {
-                    sortArray(update);
+                    sortArray(array);
                     System.out.println("Sorted!");
-                    displayArray(update);
+                    displayArray(array);
                     displayMenu();
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     break;
                 }
                 case 5: {
-                    displayArray(update);
+                    displayArray(array);
                     displayMenu();
                     choice = scanner.nextInt();
                     scanner.nextLine();
@@ -78,8 +73,8 @@ public class Products {
                     scanner.nextLine();
                     System.out.println("Enter name product edit : ");
                     String nameEdit = scanner.nextLine();
-                    updateProduct(update, indexEdit, nameEdit);
-                    displayArray(update);
+                    updateProduct(array, indexEdit, nameEdit);
+                    displayArray(array);
                     displayMenu();
                     choice = scanner.nextInt();
                     scanner.nextLine();
@@ -172,10 +167,10 @@ public class Products {
         Arrays.sort(array);
     }
 
-    static public String[] updateArray(String[] array) {
-        String[] update = array;
-        return update;
-    }
+//    static public String[] updateArray(String[] array) {
+//        String[] update = array;
+//        return update;
+//    }
 
     static public void displayMenu() {
         System.out.println("Menu");
@@ -187,4 +182,6 @@ public class Products {
         System.out.println("6: Update product");
         System.out.println("0: Exit");
     }
+
+
 }

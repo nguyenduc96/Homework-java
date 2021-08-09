@@ -6,65 +6,51 @@ public class Products {
         Scanner scanner = new Scanner(System.in);
         String[] array = inputArray();
         displayArray(array);
-        displayMenu();
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = -1;
         do {
+            displayMenu();
+            choice = scanner.nextInt();
+            scanner.nextLine();
             switch (choice) {
                 case 1: {
                     System.out.println("Enter name product add : ");
-                    String add_product = scanner.nextLine();
-                    array = addProduct(add_product, array);
-                    System.out.println("Added " + add_product);
+                    String nameAddProduct = scanner.nextLine();
+                    array = addProduct(nameAddProduct, array);
+                    System.out.println("Added " + nameAddProduct);
                     displayArray(array);
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 2: {
                     System.out.println("Enter name delete product : ");
-                    String del_product = scanner.nextLine();
-                    array = deleteProduct(del_product, array);
-                    if (findIndex(array, del_product) == -1) {
-                        System.out.println(del_product + " not in array");
+                    String nameDeleteProduct = scanner.nextLine();
+                    array = deleteProduct(nameDeleteProduct, array);
+                    if (findIndex(array, nameDeleteProduct) == -1) {
+                        System.out.println(nameDeleteProduct + " not in array");
                         displayArray(array);
                     } else {
-                        System.out.println("Deleted " + del_product);
+                        System.out.println("Deleted " + nameDeleteProduct);
                         displayArray(array);
                     }
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 3: {
                     System.out.println("Enter the name you want to search : ");
-                    String name_search = scanner.nextLine();
-                    if (findIndex(array, name_search) != -1) {
-                        System.out.printf("Product '%s' found at index %d \n", findProduct(array, name_search), findIndex(array, name_search));
+                    String nameProductSearch = scanner.nextLine();
+                    if (findIndex(array, nameProductSearch) != -1) {
+                        System.out.printf("Product '%s' found at index %d \n", findProduct(array, nameProductSearch), findIndex(array, nameProductSearch));
                     } else {
-                        System.out.printf("Product %s was not found !! \n", name_search);
+                        System.out.printf("Product %s was not found !! \n", nameProductSearch);
                     }
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 4: {
                     sortArray(array);
                     System.out.println("Sorted!");
                     displayArray(array);
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 5: {
                     displayArray(array);
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 6: {
@@ -75,9 +61,6 @@ public class Products {
                     String nameEdit = scanner.nextLine();
                     updateProduct(array, indexEdit, nameEdit);
                     displayArray(array);
-                    displayMenu();
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
                 }
                 case 0: {
@@ -86,7 +69,7 @@ public class Products {
                 }
                 default: {
                     System.out.println("Does not exist. Please re-enter!!");
-                    displayMenu();
+                    break;
                 }
             }
         } while (choice != 0);
@@ -116,12 +99,12 @@ public class Products {
         System.out.println("Array product " + Arrays.toString(array));
     }
 
-    static public String[] addProduct(String add_product, String[] array) {
+    static public String[] addProduct(String nameAddProduct, String[] array) {
         String[] newArray = createArray(array.length + 1);
         for (int i = 0; i < newArray.length - 1; i++) {
             newArray[i] = array[i];
         }
-        newArray[newArray.length - 1] = add_product;
+        newArray[newArray.length - 1] = nameAddProduct;
         return newArray;
     }
 
@@ -137,9 +120,9 @@ public class Products {
         return index;
     }
 
-    static public String[] deleteProduct(String del_product, String[] array) {
+    static public String[] deleteProduct(String nameDeleteProduct, String[] array) {
         String[] newArrayDelete = createArray(array.length - 1);
-        int index = findIndex(array, del_product);
+        int index = findIndex(array, nameDeleteProduct);
         if (index != -1) {
             for (int i = 0; i < newArrayDelete.length; i++) {
                 if (i < index) {

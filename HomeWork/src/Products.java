@@ -72,6 +72,19 @@ public class Products {
                     scanner.nextLine();
                     break;
                 }
+                case 6: {
+                    System.out.println("Enter index edit : ");
+                    int indexEdit = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter name product edit : ");
+                    String nameEdit = scanner.nextLine();
+                    updateProduct(update, indexEdit, nameEdit);
+                    displayArray(update);
+                    displayMenu();
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                }
                 case 0: {
                     System.exit(0);
                     break;
@@ -151,6 +164,10 @@ public class Products {
         return array[index];
     }
 
+    static public void updateProduct(String[] array, int indexProduct, String nameEdit){
+        array[indexProduct] = nameEdit;
+    }
+
     static public void sortArray(String[] array) {
         Arrays.sort(array);
     }
@@ -167,6 +184,7 @@ public class Products {
         System.out.println("3: Search product");
         System.out.println("4: Sort product");
         System.out.println("5: Display array product");
+        System.out.println("6: Update product");
         System.out.println("0: Exit");
     }
 }

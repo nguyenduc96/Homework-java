@@ -159,18 +159,13 @@ public class Products {
         return array[index];
     }
 
-    static public void updateProduct(String[] array, int indexProduct, String nameEdit){
+    static public void updateProduct(String[] array, int indexProduct, String nameEdit) {
         array[indexProduct] = nameEdit;
     }
 
     static public void sortArray(String[] array) {
         Arrays.sort(array);
     }
-
-//    static public String[] updateArray(String[] array) {
-//        String[] update = array;
-//        return update;
-//    }
 
     static public void displayMenu() {
         System.out.println("Menu");
@@ -182,6 +177,4 @@ public class Products {
         System.out.println("6: Update product");
         System.out.println("0: Exit");
     }
-
-
 }
